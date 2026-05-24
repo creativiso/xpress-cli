@@ -7,6 +7,7 @@ import * as getCmd from '../commands/get';
 import * as createCmd from '../commands/create';
 import * as updateCmd from '../commands/update';
 import * as deleteCmd from '../commands/delete';
+import * as completionCmd from '../commands/completion';
 
 const program = new Command();
 
@@ -30,6 +31,7 @@ getCmd.register(program);
 createCmd.register(program);
 updateCmd.register(program);
 deleteCmd.register(program);
+completionCmd.register(program);
 
 program.addHelpText('after', `
 Resources:
