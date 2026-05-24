@@ -4,7 +4,7 @@ Fetch translation strings as a flat key→value map.
 
 ## Subcommands
 
-### `strings get`
+### `list strings`
 
 | Option | Description |
 |--------|-------------|
@@ -12,10 +12,10 @@ Fetch translation strings as a flat key→value map.
 | `--lang <code>` | Language code |
 
 ```bash
-xpress strings get
-xpress strings get --lang en
-xpress strings get --lang bg --group nav
-xpress strings get --json | jq 'to_entries[] | "\(.key): \(.value)"'
+xpress list strings
+xpress list strings --lang en
+xpress list strings --lang bg --group nav
+xpress list strings --json | jq 'to_entries[] | "\(.key): \(.value)"'
 ```
 
 ## Output

@@ -38,13 +38,13 @@ xpress config use mysite   # switch the default site
 Use `--site` to target a specific site for a single command:
 
 ```bash
-xpress pages list --site staging
+xpress list pages --site staging
 ```
 
 Use `--token` and `--url` to override individual values directly:
 
 ```bash
-xpress pages list --token OTHER_TOKEN --url https://staging.example.com/pub/api/v1
+xpress list pages --token OTHER_TOKEN --url https://staging.example.com/pub/api/v1
 ```
 
 ## Security

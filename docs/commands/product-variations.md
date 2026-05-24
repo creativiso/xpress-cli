@@ -9,22 +9,22 @@ Each variation category has a `value_type`:
 
 ## Subcommands
 
-### `product-variations list`
+### `list product-variations`
 
 ```bash
-xpress product-variations list
-xpress product-variations list --lang en --json
+xpress list product-variations
+xpress list product-variations --lang en --json
 ```
 
-### `product-variations get <id>`
+### `get product-variation <id>`
 
 Returns the category with all its variation values.
 
 ```bash
-xpress product-variations get 1
+xpress get product-variation 1
 ```
 
-### `product-variations create`
+### `create product-variation`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -34,11 +34,11 @@ xpress product-variations get 1
 | `--sort <n>` | No | Sort order (default: 0) |
 
 ```bash
-xpress product-variations create --name "Size" --value-type simple
-xpress product-variations create --name "Color" --value-type color --layout swatches
+xpress create product-variation --name "Size" --value-type simple
+xpress create product-variation --name "Color" --value-type color --layout swatches
 ```
 
-### `product-variations update <id>`
+### `update product-variation <id>`
 
 | Option | Description |
 |--------|-------------|
@@ -48,13 +48,13 @@ xpress product-variations create --name "Color" --value-type color --layout swat
 | `--sort <n>` | New sort order |
 
 ```bash
-xpress product-variations update 1 --name "Size (EU)"
+xpress update product-variation 1 --name "Size (EU)"
 ```
 
-### `product-variations delete <id>`
+### `delete product-variation <id>`
 
 Soft-deletes the variation category.
 
 ```bash
-xpress product-variations delete 1
+xpress delete product-variation 1
 ```

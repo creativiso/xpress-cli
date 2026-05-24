@@ -6,7 +6,7 @@ Each record maps a URL path to a specific resource (Page, Product, Article, etc.
 
 ## Subcommands
 
-### `indexed-urls list`
+### `list indexed-urls`
 
 | Option | Description | Default |
 |--------|-------------|---------|
@@ -16,15 +16,15 @@ Each record maps a URL path to a specific resource (Page, Product, Article, etc.
 | `--active <1\|0>` | Filter by active status | — |
 
 ```bash
-xpress indexed-urls list
-xpress indexed-urls list --resource-type Product --active 1
-xpress indexed-urls list --json | jq '[.data[] | {url, resource_type, resource_id}]'
+xpress list indexed-urls
+xpress list indexed-urls --resource-type Product --active 1
+xpress list indexed-urls --json | jq '[.data[] | {url, resource_type, resource_id}]'
 ```
 
-### `indexed-urls get <id>`
+### `get indexed-url <id>`
 
 ```bash
-xpress indexed-urls get 55
+xpress get indexed-url 55
 ```
 
 ## Fields

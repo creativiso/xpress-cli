@@ -6,22 +6,22 @@ Each option category contains option items with a `price_change` that adjusts th
 
 ## Subcommands
 
-### `product-options list`
+### `list product-options`
 
 ```bash
-xpress product-options list
-xpress product-options list --lang en --json
+xpress list product-options
+xpress list product-options --lang en --json
 ```
 
-### `product-options get <id>`
+### `get product-option <id>`
 
 Returns the category with all its option items.
 
 ```bash
-xpress product-options get 2
+xpress get product-option 2
 ```
 
-### `product-options create`
+### `create product-option`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -30,11 +30,11 @@ xpress product-options get 2
 | `--required` | No | Make selection required |
 
 ```bash
-xpress product-options create --name "Gift Wrap"
-xpress product-options create --name "Engraving" --required
+xpress create product-option --name "Gift Wrap"
+xpress create product-option --name "Engraving" --required
 ```
 
-### `product-options update <id>`
+### `update product-option <id>`
 
 | Option | Description |
 |--------|-------------|
@@ -43,11 +43,11 @@ xpress product-options create --name "Engraving" --required
 | `--required` / `--no-required` | Required flag |
 
 ```bash
-xpress product-options update 2 --name "Gift Wrapping" --required
+xpress update product-option 2 --name "Gift Wrapping" --required
 ```
 
-### `product-options delete <id>`
+### `delete product-option <id>`
 
 ```bash
-xpress product-options delete 2
+xpress delete product-option 2
 ```

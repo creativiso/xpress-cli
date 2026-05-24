@@ -8,26 +8,26 @@ Attributes have two types:
 
 ## Subcommands
 
-### `product-attributes list`
+### `list product-attributes`
 
 | Option | Description |
 |--------|-------------|
 | `--all` | Include inactive attributes |
 
 ```bash
-xpress product-attributes list
-xpress product-attributes list --all --json
+xpress list product-attributes
+xpress list product-attributes --all --json
 ```
 
-### `product-attributes get <id>`
+### `get product-attribute <id>`
 
 Returns the attribute with all its predefined values.
 
 ```bash
-xpress product-attributes get 5
+xpress get product-attribute 5
 ```
 
-### `product-attributes create`
+### `create product-attribute`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -40,57 +40,57 @@ xpress product-attributes get 5
 | `--show-on-card` | No | Show value on product listing cards |
 
 ```bash
-xpress product-attributes create --name "Color" --type predefined --filter
-xpress product-attributes create --name "Weight" --type number --suffix "kg" --show-on-card
+xpress create product-attribute --name "Color" --type predefined --filter
+xpress create product-attribute --name "Weight" --type number --suffix "kg" --show-on-card
 ```
 
-### `product-attributes update <id>`
+### `update product-attribute <id>`
 
 Same options as `create` (all optional).
 
 ```bash
-xpress product-attributes update 5 --name "Colour" --show-on-card
+xpress update product-attribute 5 --name "Colour" --show-on-card
 ```
 
-### `product-attributes delete <id>`
+### `delete product-attribute <id>`
 
 ```bash
-xpress product-attributes delete 5
+xpress delete product-attribute 5
 ```
 
 ---
 
-## product-attributes values
+## Attribute values
 
 Manage predefined values for a `predefined`-type attribute.
 
-### `product-attributes values list <attributeId>`
+### `list attribute-values <attributeId>`
 
 ```bash
-xpress product-attributes values list 5
+xpress list attribute-values 5
 ```
 
-### `product-attributes values add <attributeId>`
+### `create attribute-value <attributeId>`
 
 | Option | Required | Description |
 |--------|----------|-------------|
 | `--name <name>` | Yes | Value name |
 
 ```bash
-xpress product-attributes values add 5 --name "Red"
-xpress product-attributes values add 5 --name "Blue"
+xpress create attribute-value 5 --name "Red"
+xpress create attribute-value 5 --name "Blue"
 ```
 
-### `product-attributes values update <attributeId> <valueId>`
+### `update attribute-value <attributeId> <valueId>`
 
 ```bash
-xpress product-attributes values update 5 12 --name "Crimson Red"
+xpress update attribute-value 5 12 --name "Crimson Red"
 ```
 
-### `product-attributes values delete <attributeId> <valueId>`
+### `delete attribute-value <attributeId> <valueId>`
 
 Cascades — removes i18n rows and product links.
 
 ```bash
-xpress product-attributes values delete 5 12
+xpress delete attribute-value 5 12
 ```

@@ -4,7 +4,7 @@ Manage customer orders.
 
 ## Subcommands
 
-### `orders list`
+### `list orders`
 
 | Option | Description | Default |
 |--------|-------------|---------|
@@ -15,21 +15,21 @@ Manage customer orders.
 | `--email <email>` | Filter by customer email | — |
 
 ```bash
-xpress orders list
-xpress orders list --status pending --json
-xpress orders list --email customer@example.com
+xpress list orders
+xpress list orders --status pending --json
+xpress list orders --email customer@example.com
 ```
 
-### `orders get <id>`
+### `get order <id>`
 
 Returns the full order with all items and option details.
 
 ```bash
-xpress orders get 100
-xpress orders get 100 --json
+xpress get order 100
+xpress get order 100 --json
 ```
 
-### `orders create`
+### `create order`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -61,14 +61,14 @@ The `--items` value is a JSON array. Each item:
 ```
 
 ```bash
-xpress orders create \
+xpress create order \
   --email buyer@example.com \
   --first-name Jane \
   --last-name Doe \
   --items '[{"product":42,"qty":1,"variation":null,"options":[]}]'
 ```
 
-### `orders update <id>`
+### `update order <id>`
 
 | Option | Description |
 |--------|-------------|
@@ -79,16 +79,16 @@ xpress orders create \
 | `--metadata <json>` | Metadata object as JSON |
 
 ```bash
-xpress orders update 100 --status shipped
-xpress orders update 100 --payment-status paid --metadata '{"tracking":"XY123456"}'
+xpress update order 100 --status shipped
+xpress update order 100 --payment-status paid --metadata '{"tracking":"XY123456"}'
 ```
 
-### `orders delete <id>`
+### `delete order <id>`
 
 Deletes the order and all its items.
 
 ```bash
-xpress orders delete 100
+xpress delete order 100
 ```
 
 ## Order status values

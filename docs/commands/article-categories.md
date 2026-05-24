@@ -4,22 +4,22 @@ Manage article/blog categories.
 
 ## Subcommands
 
-### `article-categories list`
+### `list article-categories`
 
 Returns a flat array of all categories.
 
 ```bash
-xpress article-categories list
-xpress article-categories list --lang en --json
+xpress list article-categories
+xpress list article-categories --lang en --json
 ```
 
-### `article-categories get <id>`
+### `get article-category <id>`
 
 ```bash
-xpress article-categories get 2
+xpress get article-category 2
 ```
 
-### `article-categories create`
+### `create article-category`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -29,11 +29,11 @@ xpress article-categories get 2
 | `--sort <n>` | No | Sort order (default: 0) |
 
 ```bash
-xpress article-categories create --slug news --title "News"
-xpress article-categories create --slug local --title "Local News" --parent 1
+xpress create article-category --slug news --title "News"
+xpress create article-category --slug local --title "Local News" --parent 1
 ```
 
-### `article-categories update <id>`
+### `update article-category <id>`
 
 | Option | Description |
 |--------|-------------|
@@ -42,11 +42,11 @@ xpress article-categories create --slug local --title "Local News" --parent 1
 | `--sort <n>` | New sort order |
 
 ```bash
-xpress article-categories update 2 --title "Breaking News"
+xpress update article-category 2 --title "Breaking News"
 ```
 
-### `article-categories delete <id>`
+### `delete article-category <id>`
 
 ```bash
-xpress article-categories delete 2
+xpress delete article-category 2
 ```

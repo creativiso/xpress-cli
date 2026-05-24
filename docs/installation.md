@@ -7,7 +7,7 @@
 ## Install globally
 
 ```bash
-npm install -g xpress-cli
+npm install -g @creativiso/xpress-cli
 ```
 
 ## Verify
@@ -20,11 +20,11 @@ xpress --help
 ## Update
 
 ```bash
-npm update -g xpress-cli
+npm update -g @creativiso/xpress-cli
 ```
 
 ## Uninstall
 
 ```bash
-npm uninstall -g xpress-cli
+npm uninstall -g @creativiso/xpress-cli
 ```

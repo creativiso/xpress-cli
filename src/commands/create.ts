@@ -33,15 +33,40 @@ export function register(program: Command): void {
     .requiredOption('--title <title>', 'Title')
     .option('--template <name>', 'Page template')
     .option('--parent <id>', 'Parent page ID', '0')
+    .option('--sort <n>', 'Sort order')
     .option('--body <html>', 'Body HTML')
-    .option('--meta-title <title>', 'Meta title')
-    .option('--meta-description <desc>', 'Meta description')
+    .option('--extra-description <text>', 'Extra description')
+    .option('--meta-title <title>', 'SEO meta title')
+    .option('--meta-description <desc>', 'SEO meta description')
+    .option('--og-description <desc>', 'Open Graph description')
+    .option('--title-suffix <text>', 'Title suffix')
+    .option('--page-image <url>', 'Page image URL')
+    .option('--page-background-image <url>', 'Page background image URL')
     .option('--public', 'Public (default true)')
     .option('--no-public', 'Private')
+    .option('--noindex', 'Add noindex meta tag')
+    .option('--nofollow', 'Add nofollow meta tag')
     .action(async (opts, cmd) => {
       const client = getClientFromCmd(cmd);
       const globalOpts = getGlobalOpts(cmd);
-      const body = buildParams({ slug: opts.slug, title: opts.title, template: opts.template, parent: Number(opts.parent), body: opts.body, meta_title: opts.metaTitle, meta_description: opts.metaDescription, public: opts.public });
+      const body = buildParams({
+        url: opts.slug,
+        title: opts.title,
+        template: opts.template,
+        parent: opts.parent !== undefined ? Number(opts.parent) : undefined,
+        sort: opts.sort !== undefined ? Number(opts.sort) : undefined,
+        body: opts.body,
+        extra_description: opts.extraDescription,
+        meta_title: opts.metaTitle,
+        meta_description: opts.metaDescription,
+        og_description: opts.ogDescription,
+        title_suffix: opts.titleSuffix,
+        page_image: opts.pageImage,
+        page_background_image: opts.pageBackgroundImage,
+        public: opts.public,
+        noindex: opts.noindex,
+        nofollow: opts.nofollow
+      });
       const { data } = await client.post<PageNormalized>('/pages', body);
       printData(data, globalOpts);
       success(`Page #${data.id} created.`, globalOpts);
@@ -64,7 +89,18 @@ export function register(program: Command): void {
     .action(async (opts, cmd) => {
       const client = getClientFromCmd(cmd);
       const globalOpts = getGlobalOpts(cmd);
-      const body = buildParams({ slug: opts.slug, title: opts.title, body: opts.body, meta_title: opts.metaTitle, meta_description: opts.metaDescription, image: opts.image, category_id: opts.categoryId !== undefined ? Number(opts.categoryId) : undefined, active: opts.active, top: opts.top ?? false, private: opts.private ?? false });
+      const body = buildParams({
+        url: opts.slug,
+        title: opts.title,
+        body: opts.body,
+        meta_title: opts.metaTitle,
+        meta_description: opts.metaDescription,
+        image: opts.image,
+        category: opts.categoryId !== undefined ? Number(opts.categoryId) : undefined,
+        active: opts.active,
+        top: opts.top ?? false,
+        private: opts.private ?? false
+      });
       const { data } = await client.post<Article>('/articles', body);
       printData(data, globalOpts);
       success(`Article #${data.id} created.`, globalOpts);
@@ -77,10 +113,19 @@ export function register(program: Command): void {
     .requiredOption('--title <title>', 'Title')
     .option('--parent <id>', 'Parent category ID', '0')
     .option('--sort <n>', 'Sort order', '0')
+    .option('--meta-title <title>', 'SEO meta title')
+    .option('--meta-description <desc>', 'SEO meta description')
     .action(async (opts, cmd) => {
       const client = getClientFromCmd(cmd);
       const globalOpts = getGlobalOpts(cmd);
-      const body = { slug: opts.slug, title: opts.title, parent: Number(opts.parent), sort: Number(opts.sort) };
+      const body = buildParams({
+        url: opts.slug,
+        title: opts.title,
+        parent: Number(opts.parent),
+        sort: Number(opts.sort),
+        meta_title: opts.metaTitle,
+        meta_description: opts.metaDescription
+      });
       const { data } = await client.post<ArticleCategory>('/article-categories', body);
       printData(data, globalOpts);
       success(`Article category #${data.id} created.`, globalOpts);
@@ -99,14 +144,42 @@ export function register(program: Command): void {
     .option('--quantity <n>', 'Stock quantity', '0')
     .option('--weight <n>', 'Weight', '0')
     .option('--product-type <type>', 'Product type (physical|digital|service)', 'physical')
+    .option('--template <name>', 'Product template')
     .option('--active', 'Active (default true)')
     .option('--no-active', 'Inactive')
+    .option('--noindex', 'Add noindex meta tag')
+    .option('--nofollow', 'Add nofollow meta tag')
+    .option('--hidden', 'Hide from listing')
     .option('--category-id <id>', 'Category ID')
     .option('--description <html>', 'Description HTML')
+    .option('--meta-title <title>', 'SEO meta title')
+    .option('--meta-description <desc>', 'SEO meta description')
+    .option('--og-description <desc>', 'Open Graph description')
     .action(async (opts, cmd) => {
       const client = getClientFromCmd(cmd);
       const globalOpts = getGlobalOpts(cmd);
-      const body = buildParams({ slug: opts.slug, name: opts.name, price: Number(opts.price), discount: opts.discount !== undefined ? Number(opts.discount) : undefined, discount_type: opts.discountType, sku: opts.sku, barcode: opts.barcode, quantity: Number(opts.quantity), weight: Number(opts.weight), product_type: opts.productType, active: opts.active, category_id: opts.categoryId !== undefined ? Number(opts.categoryId) : undefined, description: opts.description });
+      const body = buildParams({
+        url: opts.slug,
+        name: opts.name,
+        price: Number(opts.price),
+        discount: opts.discount !== undefined ? Number(opts.discount) : undefined,
+        discountType: opts.discountType,
+        sku: opts.sku,
+        barcode: opts.barcode,
+        quantity: Number(opts.quantity),
+        weight: Number(opts.weight),
+        productType: opts.productType,
+        template: opts.template,
+        active: opts.active,
+        noindex: opts.noindex,
+        nofollow: opts.nofollow,
+        hidden: opts.hidden,
+        category: opts.categoryId !== undefined ? Number(opts.categoryId) : undefined,
+        description: opts.description,
+        meta_title: opts.metaTitle,
+        meta_description: opts.metaDescription,
+        og_description: opts.ogDescription
+      });
       const { data } = await client.post<ProductNormalized>('/products', body);
       printData(data, globalOpts);
       success(`Product #${data.id} created.`, globalOpts);
@@ -122,10 +195,23 @@ export function register(program: Command): void {
     .option('--public', 'Public (default true)')
     .option('--no-public', 'Private')
     .option('--image <url>', 'Image URL')
+    .option('--meta-title <title>', 'SEO meta title')
+    .option('--meta-description <desc>', 'SEO meta description')
+    .option('--og-description <desc>', 'Open Graph description')
     .action(async (opts, cmd) => {
       const client = getClientFromCmd(cmd);
       const globalOpts = getGlobalOpts(cmd);
-      const body = buildParams({ slug: opts.slug, title: opts.title, parent: Number(opts.parent), sort: Number(opts.sort), public: opts.public, image: opts.image });
+      const body = buildParams({
+        url: opts.slug,
+        title: opts.title,
+        parent: Number(opts.parent),
+        sort: Number(opts.sort),
+        public: opts.public,
+        image: opts.image,
+        meta_title: opts.metaTitle,
+        meta_description: opts.metaDescription,
+        og_description: opts.ogDescription
+      });
       const { data } = await client.post<object>('/product-categories', body);
       printData(data, globalOpts);
       success(`Product category created.`, globalOpts);

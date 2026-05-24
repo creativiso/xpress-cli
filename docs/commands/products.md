@@ -4,7 +4,7 @@ Manage e-commerce products. Also includes the `raw-attrs` sub-group for raw attr
 
 ## Subcommands
 
-### `products list`
+### `list products`
 
 | Option | Description | Default |
 |--------|-------------|---------|
@@ -15,37 +15,37 @@ Manage e-commerce products. Also includes the `raw-attrs` sub-group for raw attr
 | `--sku <sku>` | Filter by SKU | — |
 
 ```bash
-xpress products list
-xpress products list --active 1 --limit 50 --json
-xpress products list --sku ABC123 --json | jq '.data[0].id'
+xpress list products
+xpress list products --active 1 --limit 50 --json
+xpress list products --sku ABC123 --json | jq '.data[0].id'
 ```
 
-### `products get <id>`
+### `get product <id>`
 
 Returns fully normalized product with sections, attributes, variations, and options.
 
 ```bash
-xpress products get 42
-xpress products get 42 --lang en --json
+xpress get product 42
+xpress get product 42 --lang en --json
 ```
 
-### `products get-raw <id>`
+### `get product <id> --raw`
 
 Returns the raw Sequelize association tree.
 
 ```bash
-xpress products get-raw 42 --json
+xpress get product 42 --raw --json
 ```
 
-### `products get-md <id>`
+### `get product <id> --md`
 
 Same as `get` but includes `md_body` — description and all section content concatenated as Markdown.
 
 ```bash
-xpress products get-md 42 --json | jq -r '.md_body'
+xpress get product 42 --md --json | jq -r '.md_body'
 ```
 
-### `products create`
+### `create product`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -64,38 +64,38 @@ xpress products get-md 42 --json | jq -r '.md_body'
 | `--description <html>` | No | Description HTML |
 
 ```bash
-xpress products create --slug red-shirt --name "Red Shirt" --price 29.99 --quantity 100
-xpress products create --slug ebook --name "My Ebook" --price 9.99 --product-type digital
+xpress create product --slug red-shirt --name "Red Shirt" --price 29.99 --quantity 100
+xpress create product --slug ebook --name "My Ebook" --price 9.99 --product-type digital
 ```
 
-### `products update <id>`
+### `update product <id>`
 
 Same options as `create` (all optional, `--slug` not updatable).
 
 ```bash
-xpress products update 42 --price 24.99 --discount 10 --discount-type percent
-xpress products update 42 --no-active
+xpress update product 42 --price 24.99 --discount 10 --discount-type percent
+xpress update product 42 --no-active
 ```
 
-### `products delete <id>`
+### `delete product <id>`
 
 ```bash
-xpress products delete 42
+xpress delete product 42
 ```
 
 ---
 
-## products raw-attrs
+## Raw attribute values
 
 Manage raw (text/numeric/date) attribute values on a specific product.
 
-### `products raw-attrs list <id>`
+### `list product-raw-attrs <productId>`
 
 ```bash
-xpress products raw-attrs list 42 --json
+xpress list product-raw-attrs 42 --json
 ```
 
-### `products raw-attrs set <id> <attrId>`
+### `update product-raw-attr <productId> <attrId>`
 
 Provide exactly one value flag:
 
@@ -106,15 +106,15 @@ Provide exactly one value flag:
 | `--date <YYYY-MM-DD>` | Set a date value |
 
 ```bash
-xpress products raw-attrs set 42 5 --numeric 9.99
-xpress products raw-attrs set 42 7 --text "Organic cotton"
-xpress products raw-attrs set 42 9 --date 2026-01-01
+xpress update product-raw-attr 42 5 --numeric 9.99
+xpress update product-raw-attr 42 7 --text "Organic cotton"
+xpress update product-raw-attr 42 9 --date 2026-01-01
 ```
 
-### `products raw-attrs delete <id> <attrId>`
+### `delete product-raw-attr <productId> <attrId>`
 
 ```bash
-xpress products raw-attrs delete 42 5
+xpress delete product-raw-attr 42 5
 ```
 
 ---

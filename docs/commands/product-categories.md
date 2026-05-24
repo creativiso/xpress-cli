@@ -4,7 +4,7 @@ Manage the product category tree.
 
 ## Subcommands
 
-### `product-categories list`
+### `list product-categories`
 
 Returns a nested tree by default. Use `--flat` for a flat array (better for dropdowns/selects).
 
@@ -13,19 +13,19 @@ Returns a nested tree by default. Use `--flat` for a flat array (better for drop
 | `--flat` | Return flat array instead of nested tree |
 
 ```bash
-xpress product-categories list
-xpress product-categories list --flat --json | jq '[.[] | {id, title}]'
+xpress list product-categories
+xpress list product-categories --flat --json | jq '[.[] | {id, title}]'
 ```
 
-### `product-categories get <id>`
+### `get product-category <id>`
 
 Returns the category with its direct children.
 
 ```bash
-xpress product-categories get 3
+xpress get product-category 3
 ```
 
-### `product-categories create`
+### `create product-category`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -37,11 +37,11 @@ xpress product-categories get 3
 | `--image <url>` | No | Category image URL |
 
 ```bash
-xpress product-categories create --slug clothing --title "Clothing"
-xpress product-categories create --slug shirts --title "Shirts" --parent 1
+xpress create product-category --slug clothing --title "Clothing"
+xpress create product-category --slug shirts --title "Shirts" --parent 1
 ```
 
-### `product-categories update <id>`
+### `update product-category <id>`
 
 | Option | Description |
 |--------|-------------|
@@ -52,11 +52,11 @@ xpress product-categories create --slug shirts --title "Shirts" --parent 1
 | `--image <url>` | Image URL |
 
 ```bash
-xpress product-categories update 3 --title "T-Shirts" --sort 2
+xpress update product-category 3 --title "T-Shirts" --sort 2
 ```
 
-### `product-categories delete <id>`
+### `delete product-category <id>`
 
 ```bash
-xpress product-categories delete 3
+xpress delete product-category 3
 ```

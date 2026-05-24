@@ -4,7 +4,7 @@ Manage site pages.
 
 ## Subcommands
 
-### `pages list`
+### `list pages`
 
 List pages with pagination.
 
@@ -16,37 +16,37 @@ List pages with pagination.
 | `--lang <code>` | Language code | config default |
 
 ```bash
-xpress pages list
-xpress pages list --limit 5 --offset 10
-xpress pages list --parent 0 --json
+xpress list pages
+xpress list pages --limit 5 --offset 10
+xpress list pages --parent 0 --json
 ```
 
-### `pages get <id>`
+### `get page <id>`
 
 Get a page with normalized content.
 
 ```bash
-xpress pages get 1
-xpress pages get 1 --lang en --json
+xpress get page 1
+xpress get page 1 --lang en --json
 ```
 
-### `pages get-raw <id>`
+### `get page <id> --raw`
 
 Get a page with the full Sequelize association tree (raw database output).
 
 ```bash
-xpress pages get-raw 1 --json
+xpress get page 1 --raw --json
 ```
 
-### `pages get-md <id>`
+### `get page <id> --md`
 
 Same as `get` but includes `md_body` — all text content concatenated as Markdown (body, extra_content values, multicontent titles/content).
 
 ```bash
-xpress pages get-md 1 --json | jq -r '.md_body'
+xpress get page 1 --md --json | jq -r '.md_body'
 ```
 
-### `pages create`
+### `create page`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -61,23 +61,23 @@ xpress pages get-md 1 --json | jq -r '.md_body'
 | `--page-image <url>` | No | Page image URL |
 
 ```bash
-xpress pages create --slug about --title "About Us"
-xpress pages create --slug contact --title "Contact" --template contact --no-public
+xpress create page --slug about --title "About Us"
+xpress create page --slug contact --title "Contact" --template contact --no-public
 ```
 
-### `pages update <id>`
+### `update page <id>`
 
 Same options as `create` (all optional).
 
 ```bash
-xpress pages update 5 --title "New Title"
-xpress pages update 5 --no-public
+xpress update page 5 --title "New Title"
+xpress update page 5 --no-public
 ```
 
-### `pages delete <id>`
+### `delete page <id>`
 
 ```bash
-xpress pages delete 5
+xpress delete page 5
 ```
 
 ## Fields

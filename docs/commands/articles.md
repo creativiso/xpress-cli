@@ -4,7 +4,7 @@ Manage blog/news articles.
 
 ## Subcommands
 
-### `articles list`
+### `list articles`
 
 | Option | Description | Default |
 |--------|-------------|---------|
@@ -15,19 +15,19 @@ Manage blog/news articles.
 | `--top <1\|0>` | Filter top articles | — |
 
 ```bash
-xpress articles list
-xpress articles list --category-id 3 --active 1
-xpress articles list --top 1 --json | jq '[.data[].slug]'
+xpress list articles
+xpress list articles --category-id 3 --active 1
+xpress list articles --top 1 --json | jq '[.data[].slug]'
 ```
 
-### `articles get <id>`
+### `get article <id>`
 
 ```bash
-xpress articles get 10
-xpress articles get 10 --lang bg --json
+xpress get article 10
+xpress get article 10 --lang bg --json
 ```
 
-### `articles create`
+### `create article`
 
 | Option | Required | Description |
 |--------|----------|-------------|
@@ -43,20 +43,20 @@ xpress articles get 10 --lang bg --json
 | `--private` | No | Mark as private |
 
 ```bash
-xpress articles create --slug my-article --title "My Article" --body "<p>Content</p>"
+xpress create article --slug my-article --title "My Article" --body "<p>Content</p>"
 ```
 
-### `articles update <id>`
+### `update article <id>`
 
 Same options as `create` (all optional). Also supports `--slug` to change the slug.
 
 ```bash
-xpress articles update 10 --title "Updated Title" --active
-xpress articles update 10 --no-active
+xpress update article 10 --title "Updated Title" --active
+xpress update article 10 --no-active
 ```
 
-### `articles delete <id>`
+### `delete article <id>`
 
 ```bash
-xpress articles delete 10
+xpress delete article 10
 ```
