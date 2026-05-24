@@ -41,6 +41,9 @@ xpress pages list --limit 1  # verify connectivity
 ## Common AI Agent Patterns
 
 ```bash
+# Paginate: get page 2 with 50 items per page
+xpress products list --page 2 --page-size 50 --json | jq '.data[].id'
+
 # Get all product IDs as JSON array
 xpress products list --json | jq '[.data[].id]'
 
@@ -87,4 +90,5 @@ Language resolution order (highest priority first):
 - Use `-q` to suppress the pagination footer and success messages
 - Use `--verbose` to debug HTTP issues (shows method, URL, params, body)
 - Paginated endpoints return `{ data: [...], meta: { total, limit, offset } }`
+- Use `-p <n>` / `--page <n>` for 1-based page number and `-n <n>` / `--page-size <n>` for items per page (default 20); `--limit` and `--offset` are lower-level aliases
 - Non-paginated list endpoints return a plain array
