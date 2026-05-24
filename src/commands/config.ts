@@ -1,7 +1,67 @@
 import { Command } from 'commander';
+import * as readline from 'readline';
+import chalk from 'chalk';
 import Table from 'cli-table3';
 import { readConfig, setSite, removeSite, setDefault, getActiveSite } from '../config/store';
 import { success } from '../output/print';
+
+async function pickSite(names: string[], current?: string): Promise<string | null> {
+  if (!process.stdin.isTTY || !process.stdout.isTTY) {
+    return null;
+  }
+
+  let idx = current ? Math.max(0, names.indexOf(current)) : 0;
+  const count = names.length;
+
+  process.stdout.write('\x1B[?25l');
+
+  const render = (first: boolean) => {
+    if (!first) process.stdout.write(`\x1B[${count}A`);
+    for (let i = 0; i < count; i++) {
+      const isCurrent = names[i] === current;
+      const isHighlighted = i === idx;
+      const prefix = isHighlighted ? '❯ ' : '  ';
+      const label = names[i] + (isCurrent ? chalk.dim(' (current)') : '');
+      process.stdout.write((isHighlighted ? chalk.cyan(prefix + label) : prefix + label) + '\n');
+    }
+  };
+
+  process.stdout.write(`\nUse arrow keys to select a site, Enter to confirm, Ctrl+C to cancel.\n\n`);
+  render(true);
+
+  return new Promise((resolve) => {
+    readline.emitKeypressEvents(process.stdin);
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+
+    const cleanup = (result: string | null) => {
+      process.stdin.setRawMode(false);
+      process.stdin.pause();
+      process.stdout.write('\x1B[?25h');
+      process.stdout.write(`\x1B[${count}A\x1B[0J`);
+      resolve(result);
+    };
+
+    const onKey = (_: unknown, key: { name: string; ctrl: boolean } | undefined) => {
+      if (!key) return;
+      if (key.ctrl && key.name === 'c') {
+        process.stdin.removeListener('keypress', onKey);
+        cleanup(null);
+      } else if (key.name === 'up') {
+        idx = (idx - 1 + count) % count;
+        render(false);
+      } else if (key.name === 'down') {
+        idx = (idx + 1) % count;
+        render(false);
+      } else if (key.name === 'return') {
+        process.stdin.removeListener('keypress', onKey);
+        cleanup(names[idx]);
+      }
+    };
+
+    process.stdin.on('keypress', onKey);
+  });
+}
 
 export function register(program: Command): void {
   const group = program.command('config').description('Manage CLI configuration and sites');
@@ -42,11 +102,27 @@ export function register(program: Command): void {
     });
 
   group
-    .command('use <site>')
-    .description('Set the default site')
-    .action((site: string) => {
-      setDefault(site);
-      success(`Default site set to "${site}".`);
+    .command('use [site]')
+    .description('Set the default site (interactive picker when no argument given)')
+    .action(async (site?: string) => {
+      if (site) {
+        setDefault(site);
+        success(`Default site set to "${site}".`);
+        return;
+      }
+      const cfg = readConfig();
+      const names = Object.keys(cfg.sites);
+      if (names.length === 0) {
+        process.stderr.write('No sites configured. Run `xpress login` to add one.\n');
+        process.exit(1);
+      }
+      const chosen = await pickSite(names, cfg.default);
+      if (!chosen) {
+        process.stderr.write('Cancelled.\n');
+        process.exit(0);
+      }
+      setDefault(chosen);
+      success(`Default site set to "${chosen}".`);
     });
 
   group

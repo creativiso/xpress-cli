@@ -1,5 +1,5 @@
 {
-  "name": "xpress-cli",
+  "name": "@creativiso/xpress-cli",
   "version": "0.1.0",
   "description": "Official CLI for the Creativiso Xpress public REST API",
   "bin": {

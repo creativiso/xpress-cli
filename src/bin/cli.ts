@@ -53,9 +53,15 @@ Resources:
            product-attribute, attribute-value, product-raw-attr,
            product-variation, product-option, order, indexed-url
 
+Pagination (list commands that return paginated results):
+  -p, --page <n>       Page number, 1-based (computes offset automatically)
+  -n, --page-size <n>  Items per page (alias: --limit, default: 20)
+  --offset <n>     Raw offset — use --page instead when possible
+
 Examples:
   xpress list pages
   xpress list orders --status shipped
+  xpress list products --page 3 --page-size 50
   xpress get page 5
   xpress get product 12 --raw
   xpress create article --slug my-post --title "My Post"

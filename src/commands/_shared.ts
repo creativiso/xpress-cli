@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { createClient } from '../client/http';
 import { readConfig } from '../config/store';
-import { OutputOptions } from '../output/print';
+import { OutputOptions, warn } from '../output/print';
 import { AxiosInstance } from 'axios';
 
 export interface GlobalOpts extends OutputOptions {
@@ -24,6 +24,24 @@ export function getClientFromCmd(cmd: Command): AxiosInstance {
     baseUrl: opts.url,
     verbose: opts.verbose,
   });
+}
+
+export interface PaginationOpts {
+  limit?: string;
+  offset?: string;
+  page?: string;
+  pageSize?: string;
+}
+
+export function resolvePagination(opts: PaginationOpts): { limit: string; offset: string } {
+  const limit = opts.pageSize ?? opts.limit ?? '20';
+  if (parseInt(limit, 10) > 100) {
+    warn('Page size exceeds the API maximum of 100. Results will be capped at 100.');
+  }
+  const offset = opts.page
+    ? String((parseInt(opts.page, 10) - 1) * parseInt(limit, 10))
+    : (opts.offset ?? '0');
+  return { limit, offset };
 }
 
 export function buildParams(pairs: Record<string, unknown>): Record<string, unknown> {
