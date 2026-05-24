@@ -11,6 +11,10 @@
     "CHANGELOG.md",
     "docs"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creativiso/xpress-cli.git"
+  },
   "publishConfig": {
     "access": "public"
   },
